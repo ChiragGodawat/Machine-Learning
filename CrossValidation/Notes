@@ -1,0 +1,9 @@
+Number of bins for Stratified K-fold for regression problem: 
+
+1. Large Dataset:- Divide data into 10, 20,30 bins directly
+
+2. Small Dataset:- Use Sturge's Rule - Number of Bins = 1 + log2(N) (Where N = number of samples)
+
+
+
+Cross validation is the first step in doing feature engineering, building models etc.
