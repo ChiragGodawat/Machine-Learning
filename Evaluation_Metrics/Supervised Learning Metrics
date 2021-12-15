@@ -1,0 +1,34 @@
+Classification (Single - Label):-
+
+Accuracy
+Precision
+Recall
+F1 Score
+Area Under the ROC
+
+(For Multiclass):-
+
+Macro average precision (average of precision of all classes)
+Micro average precision (classwise TP and FP and the calculate overall precision)
+Weighted average precision (Same as micro, but it is weighted average depending on the number of items in each class)
+
+
+
+Regression:- 
+
+Mean absolute error
+Mean Squared Error
+Root Mean Squared Error
+Root Mean Squared Logarithmic Error
+Mean Percentage Error
+Mean Absolute Percentage Error
+R2 (Coefficient of determination) - [1 - (sumation(yt-yp)/sumation(yt-ytmean))]
+
+
+
+Classification (Multi Label):-
+
+Preciosion@k (P@k) - (Choosing top k predictions, calculating common values between y_true and y_pred and dividing by k)
+Average Precision at k (AP@k) - (Calculating P@1 to P@k and taking there average)
+Mean average precision at k (MAP@k) - (Average of AP@k)
+Log loss
