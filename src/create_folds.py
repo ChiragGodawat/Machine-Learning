@@ -4,7 +4,10 @@ import pandas as pd
 
 
 def create_k_fold_mnist_csv():
+
     print("Creating K Fold CSV for mnist")
+
+    # Download original dataset from https://www.kaggle.com/oddrationale/mnist-in-csv and place it in Input folder
     df = pd.read_csv(config.MNIST_TRAIN)
     df["kfold"] = -1
     df = df.sample(frac=1).reset_index(drop=True)
