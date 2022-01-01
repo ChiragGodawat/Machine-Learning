@@ -4,7 +4,6 @@ import pandas as pd
 
 
 def create_k_fold_mnist_csv():
-
     print("Creating K Fold CSV for mnist")
 
     # Download original dataset from https://www.kaggle.com/oddrationale/mnist-in-csv and place it in Input folder
@@ -20,7 +19,6 @@ def create_k_fold_mnist_csv():
 
 
 def create_k_fold_cat_dat_csv():
-
     print("Creating K Fold CSV for Cat in Dat dataset")
 
     # Download original dataset from https://www.kaggle.com/c/cat-in-the-dat-ii/data and place it in Input folder
@@ -36,3 +34,8 @@ def create_k_fold_cat_dat_csv():
         df.loc[v_, "kfold"] = f
 
     df.to_csv(config.CAT_DAT_TRAIN_FOLD, index=False)
+
+
+# Use this main function to create the k folds separately (And not through model creation)
+if __name__ == "__main__":
+    create_k_fold_cat_dat_csv()
