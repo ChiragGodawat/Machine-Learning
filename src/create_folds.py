@@ -25,7 +25,7 @@ def create_k_fold_cat_dat_csv():
 
     # Download original dataset from https://www.kaggle.com/c/cat-in-the-dat-ii/data and place it in Input folder
     df = pd.read_csv(config.CAT_DAT_TRAIN)
-    
+
     df["kfold"] = -1
     df = df.sample(frac=1).reset_index(drop=True)
 
