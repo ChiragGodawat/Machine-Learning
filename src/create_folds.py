@@ -13,7 +13,7 @@ def create_k_fold_mnist_csv():
     df = df.sample(frac=1).reset_index(drop=True)
     y = df.label
     kf = model_selection.StratifiedKFold(n_splits=5)
-    for f, (_t, _v) in enumerate(kf.split(X=df, y =y)):
+    for f, (_t, _v) in enumerate(kf.split(X=df, y=y)):
         df.loc[_v, "kfold"] = f
 
     df.to_csv(config.MNIST_TRAIN_FOLDS, index=False)
@@ -32,7 +32,7 @@ def create_k_fold_cat_dat_csv():
     y = df.target.values
 
     kf = model_selection.StratifiedKFold(n_splits=5)
-    for f, (t_, v_) in enumerate(kf.split(X=df,y=y)):
+    for f, (t_, v_) in enumerate(kf.split(X=df, y=y)):
         df.loc[v_, "kfold"] = f
 
     df.to_csv(config.CAT_DAT_TRAIN_FOLD, index=False)
