@@ -36,6 +36,24 @@ def create_k_fold_cat_dat_csv():
     df.to_csv(config.CAT_DAT_TRAIN_FOLD, index=False)
 
 
+def create_k_fold_census():
+    print("Creating K Fold CSV for Census dataset")
+
+    # Download original dataset from https://www.kaggle.com/uciml/adult-census-income and place it in Input folder
+    df = pd.read_csv(config.CENSUS_TRAIN)
+
+    df["kfold"] = -1
+    df = df.sample(frac=1).reset_index(drop=True)
+
+    y = df.income.values
+
+    kf = model_selection.StratifiedKFold(n_splits=5)
+    for f, (t_, v_) in enumerate(kf.split(X=df, y=y)):
+        df.loc[v_, "kfold"] = f
+
+    df.to_csv(config.CENSUS_TRAIN_FOLD, index=False)
+
+
 # Use this main function to create the k folds separately (And not through model creation)
 if __name__ == "__main__":
-    create_k_fold_cat_dat_csv()
+    create_k_fold_census()
