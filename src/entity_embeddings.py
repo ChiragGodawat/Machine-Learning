@@ -76,7 +76,7 @@ def run(fold):
     model.fit(
         xtrain,
         ytrain_cat,
-        validation_data = (xvalid, yvalid_cat),
+        validation_data=(xvalid, yvalid_cat),
         verbose=1,
         batch_size=1024,
         epochs=3
@@ -90,5 +90,5 @@ def run(fold):
 
 
 if __name__ == "__main__":
-    for i in range(0,5):
+    for i in range(0, 5):
         run(i)
