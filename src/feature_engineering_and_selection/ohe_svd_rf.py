@@ -4,8 +4,8 @@ import pandas as pd
 from scipy import sparse
 from sklearn import preprocessing, decomposition, ensemble, metrics
 
-import config
-import model_dispatcher
+from src import config
+from src import model_dispatcher
 import argparse
 
 

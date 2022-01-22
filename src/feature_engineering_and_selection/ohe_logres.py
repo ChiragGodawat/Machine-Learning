@@ -3,9 +3,9 @@ import argparse
 from sklearn import metrics
 from sklearn import preprocessing
 
-import model_dispatcher
+from src import model_dispatcher
 
-import config
+from src import config
 
 
 def run_cat_in_dat(fold):

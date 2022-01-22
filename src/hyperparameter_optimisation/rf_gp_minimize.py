@@ -9,7 +9,7 @@ from sklearn import model_selection
 
 from skopt import gp_minimize
 from skopt import space
-import config
+from src import config
 
 
 def optimize(params, param_names, x, y):

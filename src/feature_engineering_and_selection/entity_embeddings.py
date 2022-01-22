@@ -4,7 +4,7 @@ import numpy as np
 from sklearn import preprocessing, metrics
 from tensorflow.keras import layers, utils, backend as K
 from tensorflow.keras.models import Model
-import config
+from src import config
 
 
 def create_model(data, cat_cols):
