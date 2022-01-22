@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn import metrics, preprocessing
 import xgboost as xgb
 
-import config
+from src import config
 
 
 def mean_target_encoding(data):

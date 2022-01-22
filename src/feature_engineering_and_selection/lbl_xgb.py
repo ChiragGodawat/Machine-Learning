@@ -6,7 +6,7 @@ import xgboost as xgb
 
 from sklearn import preprocessing
 from sklearn import metrics
-import config
+from src import config
 
 
 def run_cat_in_dat(fold):

@@ -1,12 +1,24 @@
-# Label Encoder with XGBoost with Numerical data
+# Label Encoder with XGBoost with Numerical data and feature engineering
 
 import pandas as pd
 
 import xgboost as xgb
 
+import itertools
 from sklearn import preprocessing
 from sklearn import metrics
-import config
+from src import config
+
+
+def feature_engineering(df, cat_cols):
+    combi = list(itertools.combinations(cat_cols, 2))
+    for c1, c2 in combi:
+        df.loc[
+            :,
+            c1 + "_" + c2
+        ] = df[c1].astype(str) + "_" + df[c2].astype(str)
+
+    return df
 
 
 def run_census_adult(fold):
@@ -27,6 +39,9 @@ def run_census_adult(fold):
 
     df['income'] = df.income.map(target_mapping)
 
+    cat_cols = [c for c in df.columns if c not in num_cols and c not in ("kfold", "income")]
+
+    df = feature_engineering(df, cat_cols)
     features = [f for f in df.columns if f not in ("kfold", "income")]
 
     for col in features:
@@ -44,7 +59,7 @@ def run_census_adult(fold):
     x_train = df_train[features].values
     x_valid = df_valid[features].values
 
-    model = xgb.XGBClassifier()
+    model = xgb.XGBClassifier(max_depth=7)
 
     model.fit(x_train, df_train.income.values)
 

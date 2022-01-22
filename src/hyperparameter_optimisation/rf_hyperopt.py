@@ -10,7 +10,7 @@ from sklearn import ensemble, metrics, model_selection
 from hyperopt import hp, fmin, tpe, Trials
 from hyperopt.pyll import scope
 
-import config
+from src import config
 
 
 def optimize(params, x, y):
