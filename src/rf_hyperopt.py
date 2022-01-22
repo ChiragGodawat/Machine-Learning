@@ -1,19 +1,19 @@
+# TPE: Tree structured parzen estimator
+
 import numpy as np
 import pandas as pd
 
 from functools import partial
 
-from sklearn import ensemble
-from sklearn import metrics
-from sklearn import model_selection
+from sklearn import ensemble, metrics, model_selection
 
-from skopt import gp_minimize
-from skopt import space
+from hyperopt import hp, fmin, tpe, Trials
+from hyperopt.pyll import scope
+
 import config
 
 
-def optimize(params, param_names, x, y):
-    params = dict(zip(param_names, params))
+def optimize(params, x, y):
     model = ensemble.RandomForestClassifier(**params)
     kf = model_selection.StratifiedKFold(n_splits=5)
     accuracies = []
@@ -40,40 +40,31 @@ def optimize(params, param_names, x, y):
 
 
 if __name__ == "__main__":
+
     df = pd.read_csv(config.MOBILE_TRAIN)
     x = df.drop("price_range", axis=1).values
     y = df.price_range.values
 
-    param_space = [
-        space.Integer(3, 15, name="max_depth"),
-        space.Integer(100, 1500, name="n_estimators"),
-        space.Categorical(["gini", "entropy"], name="criterion"),
-        space.Real(0.01, 1, prior="uniform", name="max_features")
-    ]
-
-    param_names = [
-        "max_depth",
-        "n_estimators",
-        "criterion",
-        "max_features"
-    ]
+    param_space = {
+        "max_depth": scope.int(hp.quniform("max_depth", 1, 15, 1)),
+        "n_estimators": scope.int(hp.quniform("n_estimators", 100, 1500, 1)),
+        "criterion": hp.choice("criterion", ["gini", "entropy"]),
+        "max_features": hp.uniform("max_features", 0, 1)
+    }
 
     optimize_function = partial(
         optimize,
-        param_names=param_names,
         x=x,
         y=y
     )
 
-    result = gp_minimize(
-        optimize_function,
-        dimensions=param_space,
-        n_calls=15,
-        n_random_starts=10,
-        verbose=10
+    trials = Trials()
+
+    hopt = fmin(
+        fn=optimize_function,
+        space=param_space,
+        algo=tpe.suggest,
+        max_evals=15,
+        trials=trials
     )
-
-    best_params = dict(zip(param_names, result.x))
-
-    print(best_params)
-
+    print(hopt)
